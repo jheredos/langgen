@@ -19,11 +19,9 @@ import (
 // Pool represents the database connection pool
 var Pool *sql.DB
 
-// var phonotacticTrees map[string]*phonotactics.PhonotacticTreeNode // map of language id to phonotactic tree root
-
 // ConnectToDB establishes a new connection with the database
 func ConnectToDB() func() {
-	uri := os.Getenv("DATABASE_CONNECTION")
+	uri := os.Getenv("DATABASE_URL")
 	var err error
 	Pool, err = sql.Open("postgres", uri) // using := causes a null pointer error for Pool???
 

@@ -13,19 +13,19 @@ func (b WordBoundary) ToIPA() string {
 }
 
 // AsVowel always returns an empty Vowel and false for a WordBoundary receiver
-func (b WordBoundary) AsVowel() (Vowel, bool) {
+func (b WordBoundary) asVowel() (Vowel, bool) {
 	return Vowel{}, false
 }
 
 // AsConsonant always returns an empty Consonant and false for a WordBoundary receiver
-func (b WordBoundary) AsConsonant() (Consonant, bool) {
+func (b WordBoundary) asConsonant() (Consonant, bool) {
 	return Consonant{}, false
 }
 
 // Match always returns whether a target Phoneme is a WordBoundary
 // by checking that the target is not a Consonant or Vowel
 func (b WordBoundary) Match(target Phoneme) bool {
-	_, isVowel := target.AsVowel()
-	_, isConsonant := target.AsConsonant()
+	_, isVowel := target.asVowel()
+	_, isConsonant := target.asConsonant()
 	return !isVowel && !isConsonant
 }

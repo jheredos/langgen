@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/julienschmidt/httprouter"
 	"github.com/rs/cors"
@@ -29,11 +30,12 @@ func main() {
 	router.GET("/ping", Ping)
 
 	handler := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:8080"},
+		AllowedOrigins:   []string{"http://localhost:8080", "https://*.herokuapp.com/"},
 		AllowCredentials: true,
 		AllowedMethods:   []string{"GET", "POST", "DELETE"},
 	}).Handler(router)
 
-	fmt.Println("Listening on port 3000...")
-	http.ListenAndServe(":3000", handler)
+	port := ":" + os.Getenv("PORT")
+	fmt.Println("Listening on port " + port)
+	http.ListenAndServe(port, handler)
 }

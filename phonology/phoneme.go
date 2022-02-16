@@ -8,31 +8,31 @@ package phonology
 type Phoneme interface {
 	ToIPA() string
 	Match(Phoneme) bool
-	AsVowel() (Vowel, bool)
-	AsConsonant() (Consonant, bool)
+	asVowel() (Vowel, bool)
+	asConsonant() (Consonant, bool)
 }
 
-// AsVowel for a Vowel receiver simply forwards the Vowel struct and returns true
+// asVowel for a Vowel receiver simply forwards the Vowel struct and returns true
 // for the second parameter to denote that the receiver is indeed a Vowel
-func (v Vowel) AsVowel() (Vowel, bool) {
+func (v Vowel) asVowel() (Vowel, bool) {
 	return v, true
 }
 
-// AsConsonant for a Vowel receiver returns an empty Consonant struct and false
+// asConsonant for a Vowel receiver returns an empty Consonant struct and false
 // to denote that the receiver is not actually a Consonant
-func (v Vowel) AsConsonant() (Consonant, bool) {
+func (v Vowel) asConsonant() (Consonant, bool) {
 	return Consonant{}, false
 }
 
-// AsVowel for a Consonant receiver returns an empty Vowel struct and false
+// asVowel for a Consonant receiver returns an empty Vowel struct and false
 // to denote that the receiver is not actually a Vowel
-func (c Consonant) AsVowel() (Vowel, bool) {
+func (c Consonant) asVowel() (Vowel, bool) {
 	return Vowel{}, false
 }
 
-// AsConsonant for a Consonant receiver simply forwards the Consonant struct and returns
+// asConsonant for a Consonant receiver simply forwards the Consonant struct and returns
 // true for the second parameter to denote that the receiver is indeed a Consonant
-func (c Consonant) AsConsonant() (Consonant, bool) {
+func (c Consonant) asConsonant() (Consonant, bool) {
 	return c, true
 }
 
@@ -42,7 +42,7 @@ func (c Consonant) AsConsonant() (Consonant, bool) {
 // it will be caught with the asVowel() Phoneme method and return false
 // Note that the pattern param may be partially described, but the receiver should not
 func (v Vowel) Match(pattern Phoneme) bool {
-	patternv, isVowel := pattern.AsVowel()
+	patternv, isVowel := pattern.asVowel()
 	if !isVowel {
 		return false
 	}
@@ -73,7 +73,7 @@ func (v Vowel) Match(pattern Phoneme) bool {
 // it will be caught with the asConsonant() Phoneme method and return false
 // Note that the pattern param may be partially described, but the receiver should not
 func (c Consonant) Match(pattern Phoneme) bool {
-	patternc, isConsonant := pattern.AsConsonant()
+	patternc, isConsonant := pattern.asConsonant()
 	if !isConsonant {
 		return false
 	}
